@@ -11,12 +11,11 @@ from product.models import Product
 
 
 class TestProductViewSet(APITestCase):
-    client = APIClient()
 
     def setUp(self):
+        self.client = APIClient()
         self.user = UserFactory()
-        token = Token.objects.create(user=self.user)  # added
-        token.save()  # added
+        self.token = Token.objects.create(user=self.user)
 
         self.product = ProductFactory(
             title="pro controller",
