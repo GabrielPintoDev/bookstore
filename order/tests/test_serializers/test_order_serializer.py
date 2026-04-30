@@ -11,9 +11,7 @@ class TestOrderSerializer(TestCase):
         self.product_1 = ProductFactory(price=100)
         self.product_2 = ProductFactory(price=200)
 
-        self.order = OrderFactory(
-            product=[self.product_1, self.product_2]
-        )
+        self.order = OrderFactory(product=[self.product_1, self.product_2])
 
         self.serializer = OrderSerializer(self.order)
 

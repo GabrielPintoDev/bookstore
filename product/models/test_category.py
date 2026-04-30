@@ -1,8 +1,10 @@
 import pytest
+
 # Lembre-se de ajustar a importação para o caminho correto do seu projeto
 from product.models import Category
 
 # --- Fixtures ---
+
 
 @pytest.fixture
 def category():
@@ -10,11 +12,13 @@ def category():
     return Category.objects.create(
         title="Eletrônicos",
         slug="eletronicos",
-        description="Produtos tecnológicos e gadgets"
+        description="Produtos tecnológicos e gadgets",
         # Não passamos o 'active' para testar o valor default
     )
 
+
 # --- Testes ---
+
 
 @pytest.mark.django_db
 def test_category_creation(category):
@@ -27,13 +31,15 @@ def test_category_creation(category):
     assert category.slug == "eletronicos"
     assert category.description == "Produtos tecnológicos e gadgets"
 
+
 @pytest.mark.django_db
 def test_category_default_active_field(category):
     """
-    Testa se o campo 'active' recebe True por padrão, 
+    Testa se o campo 'active' recebe True por padrão,
     conforme definido no modelo.
     """
     assert category.active is True
+
 
 @pytest.mark.django_db
 def test_category_unicode_representation(category):
@@ -42,7 +48,7 @@ def test_category_unicode_representation(category):
     (Nota: Se você alterar para __str__, mude a chamada aqui também).
     """
     assert category.__unicode__() == "Eletrônicos"
-    
+
     # Se você atualizar seu modelo para def __str__(self):
     # o teste correto seria:
     # assert str(category) == "Eletrônicos"

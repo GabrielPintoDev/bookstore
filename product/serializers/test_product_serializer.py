@@ -10,7 +10,7 @@ def test_product_serializer():
     data = {
         "title": "Teste serializer",
         "description": "Testando o serializer",
-        "price": 999
+        "price": 999,
     }
 
     serializer = ProductSerializer(data=data)

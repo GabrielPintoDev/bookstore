@@ -11,9 +11,7 @@ class TestProductSerializer(TestCase):
         self.category = CategoryFactory(title="technology")
 
         self.product = ProductFactory(
-            title="mouse",
-            price=100,
-            category=[self.category]
+            title="mouse", price=100, category=[self.category]
         )
 
         self.serializer = ProductSerializer(self.product)
@@ -25,10 +23,7 @@ class TestProductSerializer(TestCase):
         self.assertEqual(data["title"], "mouse")
         self.assertEqual(data["active"], self.product.active)
 
-        self.assertEqual(
-            data["category"][0]["title"],
-            "technology"
-        )
+        self.assertEqual(data["category"][0]["title"], "technology")
 
     def test_create_product(self):
         category = CategoryFactory()
@@ -38,7 +33,7 @@ class TestProductSerializer(TestCase):
             "description": "mechanical keyboard",
             "price": 300,
             "active": True,
-            "categories_id": [category.id]
+            "categories_id": [category.id],
         }
 
         serializer = ProductSerializer(data=data)

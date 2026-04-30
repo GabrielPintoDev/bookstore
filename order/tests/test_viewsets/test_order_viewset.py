@@ -23,38 +23,22 @@ class TestOrderViewSet(APITestCase):
         self.category = CategoryFactory(title="technology")
 
         self.product = ProductFactory(
-            title="mouse",
-            price=100,
-            category=[self.category]
+            title="mouse", price=100, category=[self.category]
         )
 
         # ✅ cria order com usuário
-        self.order = OrderFactory(
-            user=self.user,
-            product=[self.product]
-        )
+        self.order = OrderFactory(user=self.user, product=[self.product])
 
     def test_order(self):
-        response = self.client.get(
-            reverse("order-list", kwargs={"version": "v1"})
-        )
+        response = self.client.get(reverse("order-list", kwargs={"version": "v1"}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         order_data = response.json()
 
-        self.assertEqual(
-            order_data[0]["product"][0]["title"],
-            self.product.title
-        )
-        self.assertEqual(
-            order_data[0]["product"][0]["price"],
-            self.product.price
-        )
-        self.assertEqual(
-            order_data[0]["product"][0]["active"],
-            self.product.active
-        )
+        self.assertEqual(order_data[0]["product"][0]["title"], self.product.title)
+        self.assertEqual(order_data[0]["product"][0]["price"], self.product.price)
+        self.assertEqual(order_data[0]["product"][0]["active"], self.product.active)
         self.assertEqual(
             order_data[0]["product"][0]["category"][0]["title"],
             self.category.title,
@@ -63,14 +47,10 @@ class TestOrderViewSet(APITestCase):
     def test_create_order(self):
         product = ProductFactory()
 
-        data = {
-            "products_id": [product.id]
-        }
+        data = {"products_id": [product.id]}
 
         response = self.client.post(
-            reverse("order-list", kwargs={"version": "v1"}),
-            data=data,
-            format="json"
+            reverse("order-list", kwargs={"version": "v1"}), data=data, format="json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

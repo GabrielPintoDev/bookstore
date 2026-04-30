@@ -17,9 +17,7 @@ class TestProductViewSet(APITestCase):
         )
 
     def test_get_all_product(self):
-        response = self.client.get(
-            reverse("product-list", kwargs={"version": "v1"})
-        )
+        response = self.client.get(reverse("product-list", kwargs={"version": "v1"}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -36,16 +34,10 @@ class TestProductViewSet(APITestCase):
     def test_create_product(self):
         category = CategoryFactory()
 
-        data = {
-            "title": "notebook",
-            "price": 800.00,
-            "categories_id": [category.id]
-        }
+        data = {"title": "notebook", "price": 800.00, "categories_id": [category.id]}
 
         response = self.client.post(
-            reverse("product-list", kwargs={"version": "v1"}),
-            data=data,
-            format="json"
+            reverse("product-list", kwargs={"version": "v1"}), data=data, format="json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
