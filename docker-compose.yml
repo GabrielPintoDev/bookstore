@@ -3,7 +3,7 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - .:/usr/src/app
     ports:
       - 8000:8000
     env_file:
@@ -15,11 +15,13 @@ services:
 
   db:
     image: postgres:16.0-alpine
+    ports:
+      - 5433:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=bookstore_dev
-      - POSTGRES_PASSWORD=bookstore_dev
+      - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=bookstore_dev_db
     networks:
       - backend
