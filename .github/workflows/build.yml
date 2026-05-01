@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.13"]
-        poetry-version: ["2.3.2"]
 
     runs-on: ubuntu-latest
 
@@ -25,10 +24,11 @@ jobs:
 
       - name: Install poetry ${{ matrix.poetry-version }}
         run: |
-          curl -sSL https://install.python-poetry. org | POETRY_VERSION=${{ matrix.poetry-version }} python3 -
-          echo "$HOME/. local/bin" >> $GITHUB_PATH
-      - name: View poetry -help
-        run: poetry -- help
+          curl -sSL https://install.python-poetry.org | POETRY_VERSION=${{ matrix.poetry-version }} python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: View poetry --help
+        run: poetry --help
 
       - name: Install dependencies
         run: |
