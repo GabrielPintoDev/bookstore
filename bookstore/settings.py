@@ -21,7 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%=aahfky16ptio^k46#*)=hch4ck^a&=h0q0%l*4s3-g5(6&11"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,11 +46,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "debug_toolbar",
 ]
-
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -134,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"  # ADICIONE ISSO
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -151,8 +146,11 @@ INTERNAL_IPS = [
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    "gabrielandradepinto.pythonanywhere.com localhost 127.0.0.1"
+).split(" ")
