@@ -152,5 +152,21 @@ DEBUG = int(os.environ.get("DEBUG", default=1))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS",
-    "gabrielandradepinto.pythonanywhere.com localhost 127.0.0.1"
+    "gabrielandradepinto.pythonanywhere.com"
 ).split(" ")
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "bookstore" / "templates"],  # adaptado para pathlib
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
