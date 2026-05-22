@@ -5,10 +5,9 @@ Bookstore APP from Backend Python course from EBAC
 ## Prerequisites
 
 ```
-Python 3.5>
-Poetry
-Docker && docker-compose
-
+Python 3.8+
+Poetry (optional)
+Docker & docker-compose (optional)
 ```
 
 ## Quickstart
@@ -16,32 +15,72 @@ Docker && docker-compose
 1. Clone this project
 
    ```shell
-   git clone git@github.com:drsantos20/bookstore.git
-   ```
-
-2. Install dependencies:
-
-   ```shell
+   git clone git@github.com:GabrielPintoDev/bookstore.git
    cd bookstore
-   poetry install
    ```
 
-3. Run local dev server:
+2. Using Poetry (recommended)
 
    ```shell
-   poetry run manage.py migrate
+   poetry install
+   poetry run python manage.py migrate
+   poetry run python manage.py createsuperuser
    poetry run python manage.py runserver
    ```
-   
-4. Run docker dev server environment:
+
+3. Using virtualenv + pip (alternative)
+
+   ```powershell
+   python -m venv env
+   .\env\Scripts\Activate.ps1   # PowerShell on Windows
+   pip install -r requirements.txt
+   python manage.py migrate
+   python manage.py runserver
+   ```
+
+4. Docker (development)
 
    ```shell
-   docker-compose up -d --build 
+   docker-compose up -d --build
    docker-compose exec web python manage.py migrate
    ```
 
-5. Run tests inside of docker:
+   Replace `web` with your service name if different.
+
+5. Run tests
 
    ```shell
+   pytest
+   # or inside docker
    docker-compose exec web python manage.py test
    ```
+
+6. Lint and format
+
+   ```shell
+   flake8 .
+   black .
+   ```
+
+7. Collect static files (production)
+
+   ```shell
+   python manage.py collectstatic --noinput
+   ```
+
+8. Stop and remove Docker containers
+
+   ```shell
+   docker-compose down
+   ```
+
+If you want, I can adjust these steps for Windows CMD, WSL, or add examples for running the app with `poetry shell`.
+
+URLs:
+
+https://gabrielandradepinto.pythonanywhere.com/bookstore/v1/product/
+https://gabrielandradepinto.pythonanywhere.com/bookstore/v1/order/
+https://gabrielandradepinto.pythonanywhere.com/bookstore/v2/product/
+https://gabrielandradepinto.pythonanywhere.com/bookstore/v2/order/
+https://gabrielandradepinto.pythonanywhere.com/hello/
+https://gabrielandradepinto.pythonanywhere.com/admin/login/?next=/admin/
